@@ -1,7 +1,6 @@
 import { prepareStalker } from "#stalker";
 
-const arr = Array.from({ length: 3 }, (v, i) => `item ${i}`);
-const stalk = prepareStalker(arr, "arr");
+const stalk = prepareStalker(Array.from({ length: 3 }, (v, i) => `item ${i}`), "arr");
 
 stalk`arr.push("item 3", "item 4")`;
 stalk`arr.pop()`;
