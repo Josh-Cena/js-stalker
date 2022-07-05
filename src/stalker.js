@@ -24,6 +24,8 @@ function isPassThrough(v) {
 }
 
 function wrap(obj, name, ctorNameCounter) {
+  let isSetting = false;
+
   return new Proxy(Object(obj), {
     get(t, p, r) {
       if (typeof obj === "number" && (p === "valueOf" || p === Symbol.toPrimitive)) {
@@ -44,7 +46,11 @@ function wrap(obj, name, ctorNameCounter) {
       console.log(
         `  ${pico.bgBlue(" SET".padEnd(6))} ${pico.green(print(p))} on ${pico.cyan(name)} to ${pico.yellow(print(v))}`
       );
-      return Reflect.set(t, p, v, r);
+      // set invokes defineProperty if the property doesn't exist??
+      isSetting = true;
+      const res = Reflect.set(t, p, v, r);
+      isSetting = false;
+      return res;
     },
     has(t, p) {
       const res = Reflect.has(t, p);
@@ -69,7 +75,8 @@ function wrap(obj, name, ctorNameCounter) {
       return wrap(Reflect.construct(t, a, n), newName, ctorNameCounter);
     },
     defineProperty(t, p, a) {
-      if (p === noStalk) return Reflect.defineProperty(t, p, a);
+      if (p === noStalk || isSetting)
+        return Reflect.defineProperty(t, p, a);
       console.log(
         `  ${pico.bgBlue(" DEF".padEnd(6))} ${pico.green(print(p))} on ${pico.cyan(name)} to ${pico.yellow(print(a))}`
       );
@@ -86,9 +93,7 @@ function wrap(obj, name, ctorNameCounter) {
 export function prepareStalker(rawObj, name) {
   const __obj__ = wrap(rawObj, name, new Map());
   return ([cmd]) => {
-    __obj__[noStalk] = true;
     console.log(`${pico.dim(pico.gray(">"))} ${cmd}`);
-    __obj__[noStalk] = false;
     const res = eval(cmd.replace(new RegExp(`(?<!\\w)${name}(?!\\w)`, "g"), "__obj__"));
     __obj__[noStalk] = true;
     console.log(pico.gray(`  ${name} = ${JSON.stringify(__obj__)}`));

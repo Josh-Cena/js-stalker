@@ -3,11 +3,8 @@
    CALL  arr.push with ["item 0","item 1","item 2"] as this and ["item 3", "item 4"] as args
    GET   "length" on arr which is 3
    SET   "3" on arr to "item 3"
-   DEF   "3" on arr to {"value":"item 3","writable":true,"enumerable":true,"configurable":true}
    SET   "4" on arr to "item 4"
-   DEF   "4" on arr to {"value":"item 4","writable":true,"enumerable":true,"configurable":true}
    SET   "length" on arr to 5
-   DEF   "length" on arr to {"value":5}
   arr = ["item 0","item 1","item 2","item 3","item 4"]
 
 > arr.pop()
@@ -16,7 +13,6 @@
    GET   "length" on arr which is 5
    GET   "4" on arr which is "item 4"
    SET   "length" on arr to 4
-   DEF   "length" on arr to {"value":4}
   arr = ["item 0","item 1","item 2","item 3"]
 
 > arr.unshift("item 5", "item 6")
@@ -26,25 +22,18 @@
    TEST  3 exists on arr (it does)
    GET   "3" on arr which is "item 3"
    SET   "5" on arr to "item 3"
-   DEF   "5" on arr to {"value":"item 3","writable":true,"enumerable":true,"configurable":true}
    TEST  2 exists on arr (it does)
    GET   "2" on arr which is "item 2"
    SET   "4" on arr to "item 2"
-   DEF   "4" on arr to {"value":"item 2","writable":true,"enumerable":true,"configurable":true}
    TEST  1 exists on arr (it does)
    GET   "1" on arr which is "item 1"
    SET   "3" on arr to "item 1"
-   DEF   "3" on arr to {"value":"item 1"}
    TEST  0 exists on arr (it does)
    GET   "0" on arr which is "item 0"
    SET   "2" on arr to "item 0"
-   DEF   "2" on arr to {"value":"item 0"}
    SET   "0" on arr to "item 5"
-   DEF   "0" on arr to {"value":"item 5"}
    SET   "1" on arr to "item 6"
-   DEF   "1" on arr to {"value":"item 6"}
    SET   "length" on arr to 6
-   DEF   "length" on arr to {"value":6}
   arr = ["item 5","item 6","item 0","item 1","item 2","item 3"]
 
 > arr.shift()
@@ -55,25 +44,19 @@
    TEST  1 exists on arr (it does)
    GET   "1" on arr which is "item 6"
    SET   "0" on arr to "item 6"
-   DEF   "0" on arr to {"value":"item 6"}
    TEST  2 exists on arr (it does)
    GET   "2" on arr which is "item 0"
    SET   "1" on arr to "item 0"
-   DEF   "1" on arr to {"value":"item 0"}
    TEST  3 exists on arr (it does)
    GET   "3" on arr which is "item 1"
    SET   "2" on arr to "item 1"
-   DEF   "2" on arr to {"value":"item 1"}
    TEST  4 exists on arr (it does)
    GET   "4" on arr which is "item 2"
    SET   "3" on arr to "item 2"
-   DEF   "3" on arr to {"value":"item 2"}
    TEST  5 exists on arr (it does)
    GET   "5" on arr which is "item 3"
    SET   "4" on arr to "item 3"
-   DEF   "4" on arr to {"value":"item 3"}
    SET   "length" on arr to 5
-   DEF   "length" on arr to {"value":5}
   arr = ["item 6","item 0","item 1","item 2","item 3"]
 
 > arr.splice(2, 1, "item 7")
@@ -87,11 +70,8 @@
    GET   "2" on arr which is "item 1"
    DEF   "0" on newArray to {"value":"item 1","writable":true,"enumerable":true,"configurable":true}
    SET   "length" on newArray to 1
-   DEF   "length" on newArray to {"value":1}
    SET   "2" on arr to "item 7"
-   DEF   "2" on arr to {"value":"item 7"}
    SET   "length" on arr to 5
-   DEF   "length" on arr to {"value":5}
   arr = ["item 6","item 0","item 7","item 2","item 3"]
 
 > arr.copyWithin(2)
@@ -101,15 +81,12 @@
    TEST  2 exists on arr (it does)
    GET   "2" on arr which is "item 7"
    SET   "4" on arr to "item 7"
-   DEF   "4" on arr to {"value":"item 7"}
    TEST  1 exists on arr (it does)
    GET   "1" on arr which is "item 0"
    SET   "3" on arr to "item 0"
-   DEF   "3" on arr to {"value":"item 0"}
    TEST  0 exists on arr (it does)
    GET   "0" on arr which is "item 6"
    SET   "2" on arr to "item 6"
-   DEF   "2" on arr to {"value":"item 6"}
   arr = ["item 6","item 0","item 6","item 0","item 7"]
 
 > arr.at(-1)
@@ -149,20 +126,20 @@
    GET   "length" on arr which is 5
    GET   "constructor" on arr which is [Function Array]
    GET   @@species on arr.constructor which is [Function Array]
-   NEW   arr.constructor with [0] as args (the result is called newArray)
+   NEW   arr.constructor with [0] as args (the result is called newArray1)
    TEST  0 exists on arr (it does)
    GET   "0" on arr which is "item 6"
-   DEF   "0" on newArray to {"value":"item 6","writable":true,"enumerable":true,"configurable":true}
+   DEF   "0" on newArray1 to {"value":"item 6","writable":true,"enumerable":true,"configurable":true}
    TEST  1 exists on arr (it does)
    GET   "1" on arr which is "item 0"
-   DEF   "1" on newArray to {"value":"item 0","writable":true,"enumerable":true,"configurable":true}
+   DEF   "1" on newArray1 to {"value":"item 0","writable":true,"enumerable":true,"configurable":true}
    TEST  2 exists on arr (it does)
    GET   "2" on arr which is "item 6"
-   DEF   "2" on newArray to {"value":"item 6","writable":true,"enumerable":true,"configurable":true}
+   DEF   "2" on newArray1 to {"value":"item 6","writable":true,"enumerable":true,"configurable":true}
    TEST  3 exists on arr (it does)
    GET   "3" on arr which is "item 0"
-   DEF   "3" on newArray to {"value":"item 0","writable":true,"enumerable":true,"configurable":true}
+   DEF   "3" on newArray1 to {"value":"item 0","writable":true,"enumerable":true,"configurable":true}
    TEST  4 exists on arr (it does)
    GET   "4" on arr which is "item 7"
-   DEF   "4" on newArray to {"value":"item 7","writable":true,"enumerable":true,"configurable":true}
+   DEF   "4" on newArray1 to {"value":"item 7","writable":true,"enumerable":true,"configurable":true}
   arr = ["item 6","item 0","item 6","item 0","item 7"]
