@@ -91,8 +91,8 @@ function wrap(obj, name, ctorNameCounter) {
 }
 
 export function prepareStalker(rawObj, name) {
-  const __obj__ = wrap(rawObj, name, new Map());
   return ([cmd]) => {
+    const __obj__ = wrap(rawObj, name, new Map());
     console.log(`${pico.dim(pico.gray(">"))} ${cmd}`);
     const res = eval(cmd.replace(new RegExp(`(?<!\\w)${name}(?!\\w)`, "g"), "__obj__"));
     __obj__[noStalk] = true;
