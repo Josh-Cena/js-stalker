@@ -8,9 +8,9 @@ This is an experiment to let the JS engine log what it is doing at each step of 
 
 ```bash
 yarn install
-yarn node stalk
+yarn node src/array/main
 ```
 
-Or simply read stalk.log.
+Or simply read src/array/output.log.
 
 Currently the array methods have got the most attention, but I plan to stalk other methods as well.

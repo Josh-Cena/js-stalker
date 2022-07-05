@@ -36,24 +36,14 @@ function wrap(obj, name) {
   });
 }
 
-const arr = wrap(Array.from({ length: 3 }, (v, i) => `item ${i}`), "arr");
-
-function stalk([cmd]) {
-  console.log(`${pico.dim(pico.gray(">"))} ${cmd}`);
-  arr[stalking] = true;
-  eval(cmd);
-  arr[stalking] = false;
-  console.log(pico.gray(`  arr = ${JSON.stringify(arr)}`));
-  console.log();
+export function prepareStalker(rawObj, name) {
+  const __obj__ = wrap(rawObj, name);
+  return ([cmd]) => {
+    console.log(`${pico.dim(pico.gray(">"))} ${cmd}`);
+    __obj__[stalking] = true;
+    eval(cmd.replaceAll(name, "__obj__"));
+    __obj__[stalking] = false;
+    console.log(pico.gray(`  ${name} = ${JSON.stringify(__obj__)}`));
+    console.log();
+  }
 }
-
-stalk`arr.push("item 3", "item 4")`;
-stalk`arr.pop()`;
-stalk`arr.unshift("item 5", "item 6")`;
-stalk`arr.shift()`;
-stalk`arr.splice(2, 1, "item 7")`;
-stalk`arr.copyWithin(2)`;
-stalk`arr.at(-1)`;
-stalk`arr.toString()`;
-stalk`arr.join(",")`;
-stalk`arr.filter(i => i)`;
