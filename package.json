@@ -1,0 +1,10 @@
+{
+  "name": "array-stalk",
+  "description": "What's happening inside your arrays?",
+  "license": "CC-BY-4.0",
+  "type": "module",
+  "dependencies": {
+    "picocolors": "^1.0.0"
+  },
+  "packageManager": "yarn@3.2.1"
+}
