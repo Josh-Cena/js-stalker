@@ -41,7 +41,7 @@ export function prepareStalker(rawObj, name) {
   return ([cmd]) => {
     console.log(`${pico.dim(pico.gray(">"))} ${cmd}`);
     __obj__[stalking] = true;
-    eval(cmd.replaceAll(name, "__obj__"));
+    eval(cmd.replace(new RegExp(`(?<!\\w)${name}(?!\\w)`, "g"), "__obj__"));
     __obj__[stalking] = false;
     console.log(pico.gray(`  ${name} = ${JSON.stringify(__obj__)}`));
     console.log();

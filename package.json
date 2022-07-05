@@ -6,5 +6,8 @@
   "dependencies": {
     "picocolors": "^1.0.0"
   },
+  "imports": {
+    "#stalker": "./src/stalker.js"
+  },
   "packageManager": "yarn@3.2.1"
 }

@@ -1,4 +1,4 @@
-import { prepareStalker } from "./stalker.js";
+import { prepareStalker } from "#stalker";
 
 const arr = Array.from({ length: 3 }, (v, i) => `item ${i}`);
 const stalk = prepareStalker(arr, "arr");
