@@ -23,7 +23,10 @@ function isPassThrough(v) {
   return typeof v === "string" && v.startsWith("item ");
 }
 
-function wrap(obj, name, ctorNameCounter) {
+let ctorNameCounter = new Map();
+let indent = "  ";
+
+function wrap(obj, name) {
   let isSetting = false;
 
   return new Proxy(Object(obj), {
@@ -34,17 +37,17 @@ function wrap(obj, name, ctorNameCounter) {
       if (t[noStalk] || p === noStalk || p === "prototype") return Reflect.get(t, p, r);
       const v = Reflect.get(t, p, r);
       console.log(
-        `  ${pico.bgBlue(" GET".padEnd(6))} ${pico.green(print(p))} on ${pico.cyan(name)} which is ${pico.yellow(print(v))}`
+        `${pico.dim(indent)}${pico.bgBlue(" GET".padEnd(6))} ${pico.green(print(p))} on ${pico.cyan(name)} which is ${pico.yellow(print(v))}`
       );
       if (isPassThrough(v)) return v;
       // @@species doesn't need to be stalked because it returns constructor which is already stalked
       if (p === Symbol.species) return v;
-      return wrap(v, `${name}.${print(p).replace(/^"|"$/g, "")}`, ctorNameCounter);
+      return wrap(v, `${name}.${print(p).replace(/^"|"$/g, "")}`);
     },
     set(t, p, v, r) {
       if (t[noStalk] || p === noStalk) return Reflect.set(t, p, v, r);
       console.log(
-        `  ${pico.bgBlue(" SET".padEnd(6))} ${pico.green(print(p))} on ${pico.cyan(name)} to ${pico.yellow(print(v))}`
+        `${pico.dim(indent)}${pico.bgBlue(" SET".padEnd(6))} ${pico.green(print(p))} on ${pico.cyan(name)} to ${pico.yellow(print(v))}`
       );
       // set invokes defineProperty if the property doesn't exist??
       isSetting = true;
@@ -54,14 +57,20 @@ function wrap(obj, name, ctorNameCounter) {
     },
     has(t, p) {
       const res = Reflect.has(t, p);
-      console.log(`  ${pico.bgBlue(" TEST".padEnd(6))} ${pico.green(p)} exists on ${pico.cyan(name)} (it ${res ? "does" : "doesn't"})`);
+      console.log(`${pico.dim(indent)}${pico.bgBlue(" TEST".padEnd(6))} ${pico.green(p)} exists on ${pico.cyan(name)} (it ${res ? "does" : "doesn't"})`);
       return res;
     },
     apply(t, th, a) {
       console.log(
-        `  ${pico.bgBlue(" CALL".padEnd(6))} ${pico.green(name)} with ${pico.yellow(print(th))} as this and [${pico.yellow(a.map(print).join(", "))}] as args`,
+        `${pico.dim(indent)}${pico.bgBlue(" CALL".padEnd(6))} ${pico.green(name)} with ${pico.yellow(print(th))} as this and [${pico.yellow(a.map(print).join(", "))}] as args`,
       );
-      return Reflect.apply(t, th, a);
+      indent += "| ";
+      const res = Reflect.apply(t, th, a);
+      indent = indent.substring(0, indent.length - 2);
+      console.log(
+        `${pico.dim(indent)}Result ${pico.yellow(print(res))}`,
+      );
+      return res;
     },
     construct(t, a, n) {
       n[noStalk] = true;
@@ -70,21 +79,21 @@ function wrap(obj, name, ctorNameCounter) {
       const newName = `new${n.name}${index || ''}`;
       n[noStalk] = false;
       console.log(
-        `  ${pico.bgBlue(" NEW".padEnd(6))} ${pico.green(name)} with [${pico.yellow(a.map(print).join(", "))}] as args (the result is called ${pico.cyan(newName)})`
+        `${pico.dim(indent)}${pico.bgBlue(" NEW".padEnd(6))} ${pico.green(name)} with [${pico.yellow(a.map(print).join(", "))}] as args (the result is called ${pico.cyan(newName)})`
       );
-      return wrap(Reflect.construct(t, a, n), newName, ctorNameCounter);
+      return wrap(Reflect.construct(t, a, n), newName);
     },
     defineProperty(t, p, a) {
       if (p === noStalk || isSetting)
         return Reflect.defineProperty(t, p, a);
       console.log(
-        `  ${pico.bgBlue(" DEF".padEnd(6))} ${pico.green(print(p))} on ${pico.cyan(name)} to ${pico.yellow(print(a))}`
+        `${pico.dim(indent)}${pico.bgBlue(" DEF".padEnd(6))} ${pico.green(print(p))} on ${pico.cyan(name)} to ${pico.yellow(print(a))}`
       );
       return Reflect.defineProperty(t, p, {
         ...a,
         value: isPassThrough(a.value)
           ? a.value
-          : wrap(a.value, `${name}.${print(p).replace(/^"|"$/g, "")}`, ctorNameCounter)
+          : wrap(a.value, `${name}.${print(p).replace(/^"|"$/g, "")}`)
       });
     }
   });
@@ -92,11 +101,13 @@ function wrap(obj, name, ctorNameCounter) {
 
 export function prepareStalker(rawObj, name) {
   return ([cmd]) => {
-    const __obj__ = wrap(rawObj, name, new Map());
-    console.log(`${pico.dim(pico.gray(">"))} ${cmd}`);
+    ctorNameCounter = new Map();
+    indent = "  ";
+    const __obj__ = wrap(rawObj, name);
+    console.log(`${pico.dim(pico.dim(">"))} ${cmd}`);
     const res = eval(cmd.replace(new RegExp(`(?<!\\w)${name}(?!\\w)`, "g"), "__obj__"));
     __obj__[noStalk] = true;
-    console.log(pico.gray(`  ${name} = ${JSON.stringify(__obj__)}`));
+    console.log(pico.dim(`  ${name} = ${JSON.stringify(__obj__)}`));
     __obj__[noStalk] = false;
     console.log();
   }
