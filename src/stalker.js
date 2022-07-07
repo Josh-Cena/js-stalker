@@ -19,27 +19,20 @@ function print(v) {
   return str;
 }
 
-function isPassThrough(v) {
-  return typeof v === "string" && v.startsWith("item ");
-}
-
 let ctorNameCounter = new Map();
 let indent = "  ";
 
 function wrap(obj, name) {
+  if (isPrimitive(obj)) return obj;
   let isSetting = false;
 
-  return new Proxy(Object(obj), {
+  return new Proxy(obj, {
     get(t, p, r) {
-      if (typeof obj === "number" && (p === "valueOf" || p === Symbol.toPrimitive)) {
-        return () => obj;
-      }
       if (t[noStalk] || p === noStalk || p === "prototype") return Reflect.get(t, p, r);
       const v = Reflect.get(t, p, r);
       console.log(
         `${pico.dim(indent)}${pico.bgBlue(" GET".padEnd(6))} ${pico.green(print(p))} on ${pico.cyan(name)} which is ${pico.yellow(print(v))}`
       );
-      if (isPassThrough(v)) return v;
       // @@species doesn't need to be stalked because it returns constructor which is already stalked
       if (p === Symbol.species) return v;
       return wrap(v, `${name}.${print(p).replace(/^"|"$/g, "")}`);
@@ -64,11 +57,11 @@ function wrap(obj, name) {
       console.log(
         `${pico.dim(indent)}${pico.bgBlue(" CALL".padEnd(6))} ${pico.green(name)} with ${pico.yellow(print(th))} as this and [${pico.yellow(a.map(print).join(", "))}] as args`,
       );
-      indent += "| ";
+      indent += "│ ";
       const res = Reflect.apply(t, th, a);
-      indent = indent.substring(0, indent.length - 2);
+      indent = indent.slice(0, -2);
       console.log(
-        `${pico.dim(indent)}Result ${pico.yellow(print(res))}`,
+        `${pico.dim(indent + "└──")} Result ${pico.yellow(print(res))}`,
       );
       return res;
     },
@@ -91,9 +84,7 @@ function wrap(obj, name) {
       );
       return Reflect.defineProperty(t, p, {
         ...a,
-        value: isPassThrough(a.value)
-          ? a.value
-          : wrap(a.value, `${name}.${print(p).replace(/^"|"$/g, "")}`)
+        value: wrap(a.value, `${name}.${print(p).replace(/^"|"$/g, "")}`),
       });
     }
   });

@@ -1,156 +1,156 @@
 > arr.push("item 3", "item 4")
    GET   "push" on arr which is [Function push]
    CALL  arr.push with ["item 0","item 1","item 2"] as this and ["item 3", "item 4"] as args
-  |  GET   "length" on arr which is 3
-  |  SET   "3" on arr to "item 3"
-  |  SET   "4" on arr to "item 4"
-  |  SET   "length" on arr to 5
-  Result 5
+  │  GET   "length" on arr which is 3
+  │  SET   "3" on arr to "item 3"
+  │  SET   "4" on arr to "item 4"
+  │  SET   "length" on arr to 5
+  └── Result 5
   arr = ["item 0","item 1","item 2","item 3","item 4"]
 
 > arr.pop()
    GET   "pop" on arr which is [Function pop]
    CALL  arr.pop with ["item 0","item 1","item 2","item 3","item 4"] as this and [] as args
-  |  GET   "length" on arr which is 5
-  |  GET   "4" on arr which is "item 4"
-  |  SET   "length" on arr to 4
-  Result "item 4"
+  │  GET   "length" on arr which is 5
+  │  GET   "4" on arr which is "item 4"
+  │  SET   "length" on arr to 4
+  └── Result "item 4"
   arr = ["item 0","item 1","item 2","item 3"]
 
 > arr.unshift("item 5", "item 6")
    GET   "unshift" on arr which is [Function unshift]
    CALL  arr.unshift with ["item 0","item 1","item 2","item 3"] as this and ["item 5", "item 6"] as args
-  |  GET   "length" on arr which is 4
-  |  TEST  3 exists on arr (it does)
-  |  GET   "3" on arr which is "item 3"
-  |  SET   "5" on arr to "item 3"
-  |  TEST  2 exists on arr (it does)
-  |  GET   "2" on arr which is "item 2"
-  |  SET   "4" on arr to "item 2"
-  |  TEST  1 exists on arr (it does)
-  |  GET   "1" on arr which is "item 1"
-  |  SET   "3" on arr to "item 1"
-  |  TEST  0 exists on arr (it does)
-  |  GET   "0" on arr which is "item 0"
-  |  SET   "2" on arr to "item 0"
-  |  SET   "0" on arr to "item 5"
-  |  SET   "1" on arr to "item 6"
-  |  SET   "length" on arr to 6
-  Result 6
+  │  GET   "length" on arr which is 4
+  │  TEST  3 exists on arr (it does)
+  │  GET   "3" on arr which is "item 3"
+  │  SET   "5" on arr to "item 3"
+  │  TEST  2 exists on arr (it does)
+  │  GET   "2" on arr which is "item 2"
+  │  SET   "4" on arr to "item 2"
+  │  TEST  1 exists on arr (it does)
+  │  GET   "1" on arr which is "item 1"
+  │  SET   "3" on arr to "item 1"
+  │  TEST  0 exists on arr (it does)
+  │  GET   "0" on arr which is "item 0"
+  │  SET   "2" on arr to "item 0"
+  │  SET   "0" on arr to "item 5"
+  │  SET   "1" on arr to "item 6"
+  │  SET   "length" on arr to 6
+  └── Result 6
   arr = ["item 5","item 6","item 0","item 1","item 2","item 3"]
 
 > arr.shift()
    GET   "shift" on arr which is [Function shift]
    CALL  arr.shift with ["item 5","item 6","item 0","item 1","item 2","item 3"] as this and [] as args
-  |  GET   "length" on arr which is 6
-  |  GET   "0" on arr which is "item 5"
-  |  TEST  1 exists on arr (it does)
-  |  GET   "1" on arr which is "item 6"
-  |  SET   "0" on arr to "item 6"
-  |  TEST  2 exists on arr (it does)
-  |  GET   "2" on arr which is "item 0"
-  |  SET   "1" on arr to "item 0"
-  |  TEST  3 exists on arr (it does)
-  |  GET   "3" on arr which is "item 1"
-  |  SET   "2" on arr to "item 1"
-  |  TEST  4 exists on arr (it does)
-  |  GET   "4" on arr which is "item 2"
-  |  SET   "3" on arr to "item 2"
-  |  TEST  5 exists on arr (it does)
-  |  GET   "5" on arr which is "item 3"
-  |  SET   "4" on arr to "item 3"
-  |  SET   "length" on arr to 5
-  Result "item 5"
+  │  GET   "length" on arr which is 6
+  │  GET   "0" on arr which is "item 5"
+  │  TEST  1 exists on arr (it does)
+  │  GET   "1" on arr which is "item 6"
+  │  SET   "0" on arr to "item 6"
+  │  TEST  2 exists on arr (it does)
+  │  GET   "2" on arr which is "item 0"
+  │  SET   "1" on arr to "item 0"
+  │  TEST  3 exists on arr (it does)
+  │  GET   "3" on arr which is "item 1"
+  │  SET   "2" on arr to "item 1"
+  │  TEST  4 exists on arr (it does)
+  │  GET   "4" on arr which is "item 2"
+  │  SET   "3" on arr to "item 2"
+  │  TEST  5 exists on arr (it does)
+  │  GET   "5" on arr which is "item 3"
+  │  SET   "4" on arr to "item 3"
+  │  SET   "length" on arr to 5
+  └── Result "item 5"
   arr = ["item 6","item 0","item 1","item 2","item 3"]
 
 > arr.splice(2, 1, "item 7")
    GET   "splice" on arr which is [Function splice]
    CALL  arr.splice with ["item 6","item 0","item 1","item 2","item 3"] as this and [2, 1, "item 7"] as args
-  |  GET   "length" on arr which is 5
-  |  GET   "constructor" on arr which is [Function Array]
-  |  GET   @@species on arr.constructor which is [Function Array]
-  |  NEW   arr.constructor with [1] as args (the result is called newArray)
-  |  TEST  2 exists on arr (it does)
-  |  GET   "2" on arr which is "item 1"
-  |  DEF   "0" on newArray to {"value":"item 1","writable":true,"enumerable":true,"configurable":true}
-  |  SET   "length" on newArray to 1
-  |  SET   "2" on arr to "item 7"
-  |  SET   "length" on arr to 5
-  Result ["item 1"]
+  │  GET   "length" on arr which is 5
+  │  GET   "constructor" on arr which is [Function Array]
+  │  GET   @@species on arr.constructor which is [Function Array]
+  │  NEW   arr.constructor with [1] as args (the result is called newArray)
+  │  TEST  2 exists on arr (it does)
+  │  GET   "2" on arr which is "item 1"
+  │  DEF   "0" on newArray to {"value":"item 1","writable":true,"enumerable":true,"configurable":true}
+  │  SET   "length" on newArray to 1
+  │  SET   "2" on arr to "item 7"
+  │  SET   "length" on arr to 5
+  └── Result ["item 1"]
   arr = ["item 6","item 0","item 7","item 2","item 3"]
 
 > arr.copyWithin(2)
    GET   "copyWithin" on arr which is [Function copyWithin]
    CALL  arr.copyWithin with ["item 6","item 0","item 7","item 2","item 3"] as this and [2] as args
-  |  GET   "length" on arr which is 5
-  |  TEST  2 exists on arr (it does)
-  |  GET   "2" on arr which is "item 7"
-  |  SET   "4" on arr to "item 7"
-  |  TEST  1 exists on arr (it does)
-  |  GET   "1" on arr which is "item 0"
-  |  SET   "3" on arr to "item 0"
-  |  TEST  0 exists on arr (it does)
-  |  GET   "0" on arr which is "item 6"
-  |  SET   "2" on arr to "item 6"
-  Result ["item 6","item 0","item 6","item 0","item 7"]
+  │  GET   "length" on arr which is 5
+  │  TEST  2 exists on arr (it does)
+  │  GET   "2" on arr which is "item 7"
+  │  SET   "4" on arr to "item 7"
+  │  TEST  1 exists on arr (it does)
+  │  GET   "1" on arr which is "item 0"
+  │  SET   "3" on arr to "item 0"
+  │  TEST  0 exists on arr (it does)
+  │  GET   "0" on arr which is "item 6"
+  │  SET   "2" on arr to "item 6"
+  └── Result ["item 6","item 0","item 6","item 0","item 7"]
   arr = ["item 6","item 0","item 6","item 0","item 7"]
 
 > arr.at(-1)
    GET   "at" on arr which is [Function at]
    CALL  arr.at with ["item 6","item 0","item 6","item 0","item 7"] as this and [-1] as args
-  |  GET   "length" on arr which is 5
-  |  GET   "4" on arr which is "item 7"
-  Result "item 7"
+  │  GET   "length" on arr which is 5
+  │  GET   "4" on arr which is "item 7"
+  └── Result "item 7"
   arr = ["item 6","item 0","item 6","item 0","item 7"]
 
 > arr.toString()
    GET   "toString" on arr which is [Function toString]
    CALL  arr.toString with ["item 6","item 0","item 6","item 0","item 7"] as this and [] as args
-  |  GET   "join" on arr which is [Function join]
-  |  CALL  arr.join with ["item 6","item 0","item 6","item 0","item 7"] as this and [] as args
-  | |  GET   "length" on arr which is 5
-  | |  GET   "0" on arr which is "item 6"
-  | |  GET   "1" on arr which is "item 0"
-  | |  GET   "2" on arr which is "item 6"
-  | |  GET   "3" on arr which is "item 0"
-  | |  GET   "4" on arr which is "item 7"
-  | Result "item 6,item 0,item 6,item 0,item 7"
-  Result "item 6,item 0,item 6,item 0,item 7"
+  │  GET   "join" on arr which is [Function join]
+  │  CALL  arr.join with ["item 6","item 0","item 6","item 0","item 7"] as this and [] as args
+  │ │  GET   "length" on arr which is 5
+  │ │  GET   "0" on arr which is "item 6"
+  │ │  GET   "1" on arr which is "item 0"
+  │ │  GET   "2" on arr which is "item 6"
+  │ │  GET   "3" on arr which is "item 0"
+  │ │  GET   "4" on arr which is "item 7"
+  │ └── Result "item 6,item 0,item 6,item 0,item 7"
+  └── Result "item 6,item 0,item 6,item 0,item 7"
   arr = ["item 6","item 0","item 6","item 0","item 7"]
 
 > arr.join(",")
    GET   "join" on arr which is [Function join]
    CALL  arr.join with ["item 6","item 0","item 6","item 0","item 7"] as this and [","] as args
-  |  GET   "length" on arr which is 5
-  |  GET   "0" on arr which is "item 6"
-  |  GET   "1" on arr which is "item 0"
-  |  GET   "2" on arr which is "item 6"
-  |  GET   "3" on arr which is "item 0"
-  |  GET   "4" on arr which is "item 7"
-  Result "item 6,item 0,item 6,item 0,item 7"
+  │  GET   "length" on arr which is 5
+  │  GET   "0" on arr which is "item 6"
+  │  GET   "1" on arr which is "item 0"
+  │  GET   "2" on arr which is "item 6"
+  │  GET   "3" on arr which is "item 0"
+  │  GET   "4" on arr which is "item 7"
+  └── Result "item 6,item 0,item 6,item 0,item 7"
   arr = ["item 6","item 0","item 6","item 0","item 7"]
 
 > arr.filter(i => i)
    GET   "filter" on arr which is [Function filter]
    CALL  arr.filter with ["item 6","item 0","item 6","item 0","item 7"] as this and [[Function ]] as args
-  |  GET   "length" on arr which is 5
-  |  GET   "constructor" on arr which is [Function Array]
-  |  GET   @@species on arr.constructor which is [Function Array]
-  |  NEW   arr.constructor with [0] as args (the result is called newArray)
-  |  TEST  0 exists on arr (it does)
-  |  GET   "0" on arr which is "item 6"
-  |  DEF   "0" on newArray to {"value":"item 6","writable":true,"enumerable":true,"configurable":true}
-  |  TEST  1 exists on arr (it does)
-  |  GET   "1" on arr which is "item 0"
-  |  DEF   "1" on newArray to {"value":"item 0","writable":true,"enumerable":true,"configurable":true}
-  |  TEST  2 exists on arr (it does)
-  |  GET   "2" on arr which is "item 6"
-  |  DEF   "2" on newArray to {"value":"item 6","writable":true,"enumerable":true,"configurable":true}
-  |  TEST  3 exists on arr (it does)
-  |  GET   "3" on arr which is "item 0"
-  |  DEF   "3" on newArray to {"value":"item 0","writable":true,"enumerable":true,"configurable":true}
-  |  TEST  4 exists on arr (it does)
-  |  GET   "4" on arr which is "item 7"
-  |  DEF   "4" on newArray to {"value":"item 7","writable":true,"enumerable":true,"configurable":true}
-  Result ["item 6","item 0","item 6","item 0","item 7"]
+  │  GET   "length" on arr which is 5
+  │  GET   "constructor" on arr which is [Function Array]
+  │  GET   @@species on arr.constructor which is [Function Array]
+  │  NEW   arr.constructor with [0] as args (the result is called newArray)
+  │  TEST  0 exists on arr (it does)
+  │  GET   "0" on arr which is "item 6"
+  │  DEF   "0" on newArray to {"value":"item 6","writable":true,"enumerable":true,"configurable":true}
+  │  TEST  1 exists on arr (it does)
+  │  GET   "1" on arr which is "item 0"
+  │  DEF   "1" on newArray to {"value":"item 0","writable":true,"enumerable":true,"configurable":true}
+  │  TEST  2 exists on arr (it does)
+  │  GET   "2" on arr which is "item 6"
+  │  DEF   "2" on newArray to {"value":"item 6","writable":true,"enumerable":true,"configurable":true}
+  │  TEST  3 exists on arr (it does)
+  │  GET   "3" on arr which is "item 0"
+  │  DEF   "3" on newArray to {"value":"item 0","writable":true,"enumerable":true,"configurable":true}
+  │  TEST  4 exists on arr (it does)
+  │  GET   "4" on arr which is "item 7"
+  │  DEF   "4" on newArray to {"value":"item 7","writable":true,"enumerable":true,"configurable":true}
+  └── Result ["item 6","item 0","item 6","item 0","item 7"]
   arr = ["item 6","item 0","item 6","item 0","item 7"]
