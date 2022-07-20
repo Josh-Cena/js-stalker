@@ -14,11 +14,13 @@ function print(v) {
     () =>
       typeof v === "symbol"
         ? `@@${v.description.replace(/^Symbol\./, "")}`
-        : JSON.stringify(v)
+        : typeof v === "string"
+          ? JSON.stringify(v)
+          : String(v)
   );
 }
 
-let ctorNameCounter = new Map();
+const ctorNameCounter = new Map();
 let indent = "  ";
 
 function passThrough(obj, action, fallback) {
@@ -115,7 +117,7 @@ function wrap(obj, name) {
 
 export function prepareStalker(rawObj, name) {
   return ([cmd]) => {
-    ctorNameCounter = new Map();
+    ctorNameCounter.clear();
     indent = "  ";
     const __obj__ = wrap(rawObj, name);
     console.log(`${pico.dim(pico.dim(">"))} ${cmd}`);

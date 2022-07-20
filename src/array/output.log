@@ -79,88 +79,280 @@
   └── Result ["item 1"]
   arr = ["item 6","item 0","item 7","item 2","item 3"]
 
-> arr.copyWithin(2)
-   GET   "copyWithin" on arr which is [Function copyWithin]
-   CALL  arr.copyWithin with ["item 6","item 0","item 7","item 2","item 3"] as this and [2] as args
+> arr.reverse()
+   GET   "reverse" on arr which is [Function reverse]
+   CALL  arr.reverse with ["item 6","item 0","item 7","item 2","item 3"] as this and [] as args
   │  GET   "length" on arr which is 5
-  │  TEST  2 exists on arr (it does)
-  │  GET   "2" on arr which is "item 7"
-  │  SET   "4" on arr to "item 7"
-  │  TEST  1 exists on arr (it does)
-  │  GET   "1" on arr which is "item 0"
-  │  SET   "3" on arr to "item 0"
   │  TEST  0 exists on arr (it does)
   │  GET   "0" on arr which is "item 6"
-  │  SET   "2" on arr to "item 6"
-  └── Result ["item 6","item 0","item 6","item 0","item 7"]
-  arr = ["item 6","item 0","item 6","item 0","item 7"]
+  │  TEST  4 exists on arr (it does)
+  │  GET   "4" on arr which is "item 3"
+  │  SET   "0" on arr to "item 3"
+  │  SET   "4" on arr to "item 6"
+  │  TEST  1 exists on arr (it does)
+  │  GET   "1" on arr which is "item 0"
+  │  TEST  3 exists on arr (it does)
+  │  GET   "3" on arr which is "item 2"
+  │  SET   "1" on arr to "item 2"
+  │  SET   "3" on arr to "item 0"
+  └── Result ["item 3","item 2","item 7","item 0","item 6"]
+  arr = ["item 3","item 2","item 7","item 0","item 6"]
+
+> arr.sort(function comparator(a, b) { return a.localeCompare(b); })
+   GET   "sort" on arr which is [Function sort]
+   CALL  arr.sort with ["item 3","item 2","item 7","item 0","item 6"] as this and [[Function comparator]] as args
+  │  GET   "length" on arr which is 5
+  │  TEST  0 exists on arr (it does)
+  │  GET   "0" on arr which is "item 3"
+  │  TEST  1 exists on arr (it does)
+  │  GET   "1" on arr which is "item 2"
+  │  TEST  2 exists on arr (it does)
+  │  GET   "2" on arr which is "item 7"
+  │  TEST  3 exists on arr (it does)
+  │  GET   "3" on arr which is "item 0"
+  │  TEST  4 exists on arr (it does)
+  │  GET   "4" on arr which is "item 6"
+  │  CALL  comparator with undefined as this and ["item 2", "item 3"] as args
+  │ └── Result -1
+  │  CALL  comparator with undefined as this and ["item 7", "item 2"] as args
+  │ └── Result 1
+  │  CALL  comparator with undefined as this and ["item 7", "item 3"] as args
+  │ └── Result 1
+  │  CALL  comparator with undefined as this and ["item 0", "item 3"] as args
+  │ └── Result -1
+  │  CALL  comparator with undefined as this and ["item 0", "item 2"] as args
+  │ └── Result -1
+  │  CALL  comparator with undefined as this and ["item 6", "item 3"] as args
+  │ └── Result 1
+  │  CALL  comparator with undefined as this and ["item 6", "item 7"] as args
+  │ └── Result -1
+  │  SET   "0" on arr to "item 0"
+  │  SET   "1" on arr to "item 2"
+  │  SET   "2" on arr to "item 3"
+  │  SET   "3" on arr to "item 6"
+  │  SET   "4" on arr to "item 7"
+  └── Result ["item 0","item 2","item 3","item 6","item 7"]
+  arr = ["item 0","item 2","item 3","item 6","item 7"]
+
+> arr.copyWithin(2)
+   GET   "copyWithin" on arr which is [Function copyWithin]
+   CALL  arr.copyWithin with ["item 0","item 2","item 3","item 6","item 7"] as this and [2] as args
+  │  GET   "length" on arr which is 5
+  │  TEST  2 exists on arr (it does)
+  │  GET   "2" on arr which is "item 3"
+  │  SET   "4" on arr to "item 3"
+  │  TEST  1 exists on arr (it does)
+  │  GET   "1" on arr which is "item 2"
+  │  SET   "3" on arr to "item 2"
+  │  TEST  0 exists on arr (it does)
+  │  GET   "0" on arr which is "item 0"
+  │  SET   "2" on arr to "item 0"
+  └── Result ["item 0","item 2","item 0","item 2","item 3"]
+  arr = ["item 0","item 2","item 0","item 2","item 3"]
 
 > arr.at(-1)
    GET   "at" on arr which is [Function at]
-   CALL  arr.at with ["item 6","item 0","item 6","item 0","item 7"] as this and [-1] as args
+   CALL  arr.at with ["item 0","item 2","item 0","item 2","item 3"] as this and [-1] as args
   │  GET   "length" on arr which is 5
-  │  GET   "4" on arr which is "item 7"
-  └── Result "item 7"
-  arr = ["item 6","item 0","item 6","item 0","item 7"]
+  │  GET   "4" on arr which is "item 3"
+  └── Result "item 3"
+  arr = ["item 0","item 2","item 0","item 2","item 3"]
 
 > arr.toString()
    GET   "toString" on arr which is [Function toString]
-   CALL  arr.toString with ["item 6","item 0","item 6","item 0","item 7"] as this and [] as args
+   CALL  arr.toString with ["item 0","item 2","item 0","item 2","item 3"] as this and [] as args
   │  GET   "join" on arr which is [Function join]
-  │  CALL  arr.join with ["item 6","item 0","item 6","item 0","item 7"] as this and [] as args
+  │  CALL  arr.join with ["item 0","item 2","item 0","item 2","item 3"] as this and [] as args
   │ │  GET   "length" on arr which is 5
-  │ │  GET   "0" on arr which is "item 6"
-  │ │  GET   "1" on arr which is "item 0"
-  │ │  GET   "2" on arr which is "item 6"
-  │ │  GET   "3" on arr which is "item 0"
-  │ │  GET   "4" on arr which is "item 7"
-  │ └── Result "item 6,item 0,item 6,item 0,item 7"
-  └── Result "item 6,item 0,item 6,item 0,item 7"
-  arr = ["item 6","item 0","item 6","item 0","item 7"]
+  │ │  GET   "0" on arr which is "item 0"
+  │ │  GET   "1" on arr which is "item 2"
+  │ │  GET   "2" on arr which is "item 0"
+  │ │  GET   "3" on arr which is "item 2"
+  │ │  GET   "4" on arr which is "item 3"
+  │ └── Result "item 0,item 2,item 0,item 2,item 3"
+  └── Result "item 0,item 2,item 0,item 2,item 3"
+  arr = ["item 0","item 2","item 0","item 2","item 3"]
 
 > arr.join(",")
    GET   "join" on arr which is [Function join]
-   CALL  arr.join with ["item 6","item 0","item 6","item 0","item 7"] as this and [","] as args
+   CALL  arr.join with ["item 0","item 2","item 0","item 2","item 3"] as this and [","] as args
   │  GET   "length" on arr which is 5
-  │  GET   "0" on arr which is "item 6"
-  │  GET   "1" on arr which is "item 0"
-  │  GET   "2" on arr which is "item 6"
-  │  GET   "3" on arr which is "item 0"
-  │  GET   "4" on arr which is "item 7"
-  └── Result "item 6,item 0,item 6,item 0,item 7"
-  arr = ["item 6","item 0","item 6","item 0","item 7"]
+  │  GET   "0" on arr which is "item 0"
+  │  GET   "1" on arr which is "item 2"
+  │  GET   "2" on arr which is "item 0"
+  │  GET   "3" on arr which is "item 2"
+  │  GET   "4" on arr which is "item 3"
+  └── Result "item 0,item 2,item 0,item 2,item 3"
+  arr = ["item 0","item 2","item 0","item 2","item 3"]
+
+> arr.map(function callback(i) { return i.substring(5); })
+   GET   "map" on arr which is [Function map]
+   CALL  arr.map with ["item 0","item 2","item 0","item 2","item 3"] as this and [[Function callback]] as args
+  │  GET   "length" on arr which is 5
+  │  GET   "constructor" on arr which is [Function Array]
+  │  GET   @@species on arr.constructor which is [Function Array]
+  │  NEW   arr.constructor with [5] as args (the result is called newArray)
+  │  TEST  0 exists on arr (it does)
+  │  GET   "0" on arr which is "item 0"
+  │  CALL  callback with undefined as this and ["item 0", 0, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result "0"
+  │  DEF   "0" on newArray to {"value":"0","writable":true,"enumerable":true,"configurable":true}
+  │  TEST  1 exists on arr (it does)
+  │  GET   "1" on arr which is "item 2"
+  │  CALL  callback with undefined as this and ["item 2", 1, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result "2"
+  │  DEF   "1" on newArray to {"value":"2","writable":true,"enumerable":true,"configurable":true}
+  │  TEST  2 exists on arr (it does)
+  │  GET   "2" on arr which is "item 0"
+  │  CALL  callback with undefined as this and ["item 0", 2, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result "0"
+  │  DEF   "2" on newArray to {"value":"0","writable":true,"enumerable":true,"configurable":true}
+  │  TEST  3 exists on arr (it does)
+  │  GET   "3" on arr which is "item 2"
+  │  CALL  callback with undefined as this and ["item 2", 3, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result "2"
+  │  DEF   "3" on newArray to {"value":"2","writable":true,"enumerable":true,"configurable":true}
+  │  TEST  4 exists on arr (it does)
+  │  GET   "4" on arr which is "item 3"
+  │  CALL  callback with undefined as this and ["item 3", 4, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result "3"
+  │  DEF   "4" on newArray to {"value":"3","writable":true,"enumerable":true,"configurable":true}
+  └── Result ["0","2","0","2","3"]
+  arr = ["item 0","item 2","item 0","item 2","item 3"]
+
+> arr.forEach(function callback(i) {})
+   GET   "forEach" on arr which is [Function forEach]
+   CALL  arr.forEach with ["item 0","item 2","item 0","item 2","item 3"] as this and [[Function callback]] as args
+  │  GET   "length" on arr which is 5
+  │  TEST  0 exists on arr (it does)
+  │  GET   "0" on arr which is "item 0"
+  │  CALL  callback with undefined as this and ["item 0", 0, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result undefined
+  │  TEST  1 exists on arr (it does)
+  │  GET   "1" on arr which is "item 2"
+  │  CALL  callback with undefined as this and ["item 2", 1, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result undefined
+  │  TEST  2 exists on arr (it does)
+  │  GET   "2" on arr which is "item 0"
+  │  CALL  callback with undefined as this and ["item 0", 2, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result undefined
+  │  TEST  3 exists on arr (it does)
+  │  GET   "3" on arr which is "item 2"
+  │  CALL  callback with undefined as this and ["item 2", 3, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result undefined
+  │  TEST  4 exists on arr (it does)
+  │  GET   "4" on arr which is "item 3"
+  │  CALL  callback with undefined as this and ["item 3", 4, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result undefined
+  └── Result undefined
+  arr = ["item 0","item 2","item 0","item 2","item 3"]
 
 > arr.filter(function callback(i) { return i; })
    GET   "filter" on arr which is [Function filter]
-   CALL  arr.filter with ["item 6","item 0","item 6","item 0","item 7"] as this and [[Function callback]] as args
+   CALL  arr.filter with ["item 0","item 2","item 0","item 2","item 3"] as this and [[Function callback]] as args
   │  GET   "length" on arr which is 5
   │  GET   "constructor" on arr which is [Function Array]
   │  GET   @@species on arr.constructor which is [Function Array]
   │  NEW   arr.constructor with [0] as args (the result is called newArray)
   │  TEST  0 exists on arr (it does)
-  │  GET   "0" on arr which is "item 6"
-  │  CALL  callback with undefined as this and ["item 6", 0, ["item 6","item 0","item 6","item 0","item 7"]] as args
-  │ └── Result "item 6"
-  │  DEF   "0" on newArray to {"value":"item 6","writable":true,"enumerable":true,"configurable":true}
+  │  GET   "0" on arr which is "item 0"
+  │  CALL  callback with undefined as this and ["item 0", 0, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result "item 0"
+  │  DEF   "0" on newArray to {"value":"item 0","writable":true,"enumerable":true,"configurable":true}
   │  TEST  1 exists on arr (it does)
-  │  GET   "1" on arr which is "item 0"
-  │  CALL  callback with undefined as this and ["item 0", 1, ["item 6","item 0","item 6","item 0","item 7"]] as args
-  │ └── Result "item 0"
-  │  DEF   "1" on newArray to {"value":"item 0","writable":true,"enumerable":true,"configurable":true}
+  │  GET   "1" on arr which is "item 2"
+  │  CALL  callback with undefined as this and ["item 2", 1, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result "item 2"
+  │  DEF   "1" on newArray to {"value":"item 2","writable":true,"enumerable":true,"configurable":true}
   │  TEST  2 exists on arr (it does)
-  │  GET   "2" on arr which is "item 6"
-  │  CALL  callback with undefined as this and ["item 6", 2, ["item 6","item 0","item 6","item 0","item 7"]] as args
-  │ └── Result "item 6"
-  │  DEF   "2" on newArray to {"value":"item 6","writable":true,"enumerable":true,"configurable":true}
-  │  TEST  3 exists on arr (it does)
-  │  GET   "3" on arr which is "item 0"
-  │  CALL  callback with undefined as this and ["item 0", 3, ["item 6","item 0","item 6","item 0","item 7"]] as args
+  │  GET   "2" on arr which is "item 0"
+  │  CALL  callback with undefined as this and ["item 0", 2, ["item 0","item 2","item 0","item 2","item 3"]] as args
   │ └── Result "item 0"
-  │  DEF   "3" on newArray to {"value":"item 0","writable":true,"enumerable":true,"configurable":true}
+  │  DEF   "2" on newArray to {"value":"item 0","writable":true,"enumerable":true,"configurable":true}
+  │  TEST  3 exists on arr (it does)
+  │  GET   "3" on arr which is "item 2"
+  │  CALL  callback with undefined as this and ["item 2", 3, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result "item 2"
+  │  DEF   "3" on newArray to {"value":"item 2","writable":true,"enumerable":true,"configurable":true}
   │  TEST  4 exists on arr (it does)
-  │  GET   "4" on arr which is "item 7"
-  │  CALL  callback with undefined as this and ["item 7", 4, ["item 6","item 0","item 6","item 0","item 7"]] as args
-  │ └── Result "item 7"
-  │  DEF   "4" on newArray to {"value":"item 7","writable":true,"enumerable":true,"configurable":true}
-  └── Result ["item 6","item 0","item 6","item 0","item 7"]
-  arr = ["item 6","item 0","item 6","item 0","item 7"]
+  │  GET   "4" on arr which is "item 3"
+  │  CALL  callback with undefined as this and ["item 3", 4, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result "item 3"
+  │  DEF   "4" on newArray to {"value":"item 3","writable":true,"enumerable":true,"configurable":true}
+  └── Result ["item 0","item 2","item 0","item 2","item 3"]
+  arr = ["item 0","item 2","item 0","item 2","item 3"]
+
+> arr.indexOf("item 2")
+   GET   "indexOf" on arr which is [Function indexOf]
+   CALL  arr.indexOf with ["item 0","item 2","item 0","item 2","item 3"] as this and ["item 2"] as args
+  │  GET   "length" on arr which is 5
+  │  TEST  0 exists on arr (it does)
+  │  GET   "0" on arr which is "item 0"
+  │  TEST  1 exists on arr (it does)
+  │  GET   "1" on arr which is "item 2"
+  └── Result 1
+  arr = ["item 0","item 2","item 0","item 2","item 3"]
+
+> arr.lastIndexOf("item 2")
+   GET   "lastIndexOf" on arr which is [Function lastIndexOf]
+   CALL  arr.lastIndexOf with ["item 0","item 2","item 0","item 2","item 3"] as this and ["item 2"] as args
+  │  GET   "length" on arr which is 5
+  │  TEST  4 exists on arr (it does)
+  │  GET   "4" on arr which is "item 3"
+  │  TEST  3 exists on arr (it does)
+  │  GET   "3" on arr which is "item 2"
+  └── Result 3
+  arr = ["item 0","item 2","item 0","item 2","item 3"]
+
+> arr.find(function callback(i) { return i.endsWith("2"); })
+   GET   "find" on arr which is [Function find]
+   CALL  arr.find with ["item 0","item 2","item 0","item 2","item 3"] as this and [[Function callback]] as args
+  │  GET   "length" on arr which is 5
+  │  GET   "0" on arr which is "item 0"
+  │  CALL  callback with undefined as this and ["item 0", 0, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result false
+  │  GET   "1" on arr which is "item 2"
+  │  CALL  callback with undefined as this and ["item 2", 1, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result true
+  └── Result "item 2"
+  arr = ["item 0","item 2","item 0","item 2","item 3"]
+
+> arr.findIndex(function callback(i) { return i.endsWith("2"); })
+   GET   "findIndex" on arr which is [Function findIndex]
+   CALL  arr.findIndex with ["item 0","item 2","item 0","item 2","item 3"] as this and [[Function callback]] as args
+  │  GET   "length" on arr which is 5
+  │  GET   "0" on arr which is "item 0"
+  │  CALL  callback with undefined as this and ["item 0", 0, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result false
+  │  GET   "1" on arr which is "item 2"
+  │  CALL  callback with undefined as this and ["item 2", 1, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result true
+  └── Result 1
+  arr = ["item 0","item 2","item 0","item 2","item 3"]
+
+> arr.findLast(function callback(i) { return i.endsWith("2"); })
+   GET   "findLast" on arr which is [Function findLast]
+   CALL  arr.findLast with ["item 0","item 2","item 0","item 2","item 3"] as this and [[Function callback]] as args
+  │  GET   "length" on arr which is 5
+  │  GET   "4" on arr which is "item 3"
+  │  CALL  callback with undefined as this and ["item 3", 4, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result false
+  │  GET   "3" on arr which is "item 2"
+  │  CALL  callback with undefined as this and ["item 2", 3, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result true
+  └── Result "item 2"
+  arr = ["item 0","item 2","item 0","item 2","item 3"]
+
+> arr.findLastIndex(function callback(i) { return i.endsWith("2"); })
+   GET   "findLastIndex" on arr which is [Function findLastIndex]
+   CALL  arr.findLastIndex with ["item 0","item 2","item 0","item 2","item 3"] as this and [[Function callback]] as args
+  │  GET   "length" on arr which is 5
+  │  GET   "4" on arr which is "item 3"
+  │  CALL  callback with undefined as this and ["item 3", 4, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result false
+  │  GET   "3" on arr which is "item 2"
+  │  CALL  callback with undefined as this and ["item 2", 3, ["item 0","item 2","item 0","item 2","item 3"]] as args
+  │ └── Result true
+  └── Result 3
+  arr = ["item 0","item 2","item 0","item 2","item 3"]
+
