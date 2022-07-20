@@ -11,4 +11,4 @@ stalk`arr.copyWithin(2)`;
 stalk`arr.at(-1)`;
 stalk`arr.toString()`;
 stalk`arr.join(",")`;
-stalk`arr.filter(i => i)`;
+stalk`arr.filter(function callback(i) { return i; })`;

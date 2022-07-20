@@ -130,27 +130,37 @@
   └── Result "item 6,item 0,item 6,item 0,item 7"
   arr = ["item 6","item 0","item 6","item 0","item 7"]
 
-> arr.filter(i => i)
+> arr.filter(function callback(i) { return i; })
    GET   "filter" on arr which is [Function filter]
-   CALL  arr.filter with ["item 6","item 0","item 6","item 0","item 7"] as this and [[Function ]] as args
+   CALL  arr.filter with ["item 6","item 0","item 6","item 0","item 7"] as this and [[Function callback]] as args
   │  GET   "length" on arr which is 5
   │  GET   "constructor" on arr which is [Function Array]
   │  GET   @@species on arr.constructor which is [Function Array]
   │  NEW   arr.constructor with [0] as args (the result is called newArray)
   │  TEST  0 exists on arr (it does)
   │  GET   "0" on arr which is "item 6"
+  │  CALL  callback with undefined as this and ["item 6", 0, ["item 6","item 0","item 6","item 0","item 7"]] as args
+  │ └── Result "item 6"
   │  DEF   "0" on newArray to {"value":"item 6","writable":true,"enumerable":true,"configurable":true}
   │  TEST  1 exists on arr (it does)
   │  GET   "1" on arr which is "item 0"
+  │  CALL  callback with undefined as this and ["item 0", 1, ["item 6","item 0","item 6","item 0","item 7"]] as args
+  │ └── Result "item 0"
   │  DEF   "1" on newArray to {"value":"item 0","writable":true,"enumerable":true,"configurable":true}
   │  TEST  2 exists on arr (it does)
   │  GET   "2" on arr which is "item 6"
+  │  CALL  callback with undefined as this and ["item 6", 2, ["item 6","item 0","item 6","item 0","item 7"]] as args
+  │ └── Result "item 6"
   │  DEF   "2" on newArray to {"value":"item 6","writable":true,"enumerable":true,"configurable":true}
   │  TEST  3 exists on arr (it does)
   │  GET   "3" on arr which is "item 0"
+  │  CALL  callback with undefined as this and ["item 0", 3, ["item 6","item 0","item 6","item 0","item 7"]] as args
+  │ └── Result "item 0"
   │  DEF   "3" on newArray to {"value":"item 0","writable":true,"enumerable":true,"configurable":true}
   │  TEST  4 exists on arr (it does)
   │  GET   "4" on arr which is "item 7"
+  │  CALL  callback with undefined as this and ["item 7", 4, ["item 6","item 0","item 6","item 0","item 7"]] as args
+  │ └── Result "item 7"
   │  DEF   "4" on newArray to {"value":"item 7","writable":true,"enumerable":true,"configurable":true}
   └── Result ["item 6","item 0","item 6","item 0","item 7"]
   arr = ["item 6","item 0","item 6","item 0","item 7"]
