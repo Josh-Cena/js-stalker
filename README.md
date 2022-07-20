@@ -8,7 +8,7 @@ This is an experiment to let the JS engine log what it is doing at each step of 
 
 ```bash
 yarn install
-yarn node src/array
+yarn stalk array
 ```
 
 Or simply read src/array/output.log.

@@ -5,10 +5,18 @@ __metadata:
   version: 6
   cacheKey: 8
 
+"@types/node@npm:^18.0.6":
+  version: 18.0.6
+  resolution: "@types/node@npm:18.0.6"
+  checksum: 780f8885a6b6eb12f4c0246617747fdc37a451931b3c01ce8148d356c0903b705dcb16cc6a914de63d48b0dc1b002c7a3dfae681f580e1761aa551d3cd996813
+  languageName: node
+  linkType: hard
+
 "array-stalk@workspace:.":
   version: 0.0.0-use.local
   resolution: "array-stalk@workspace:."
   dependencies:
+    "@types/node": ^18.0.6
     picocolors: ^1.0.0
   languageName: unknown
   linkType: soft
